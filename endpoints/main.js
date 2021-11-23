@@ -1,4 +1,4 @@
-export async function routes(app, options) {
+export const routes = async (app, options) => {
 
     app.get('/', async (request, reply) => {
         return { data: 'main' }
