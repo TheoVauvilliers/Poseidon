@@ -1,13 +1,13 @@
 import Fastify from 'fastify'
 import dbConnector from './db.js'
-import endpoints from './endpoints/main.js'
+import { routes } from './endpoints/main.js'
 
 const fastify = Fastify({
     logger: true
 })
 
 fastify.register(dbConnector)
-fastify.register(endpoints)
+fastify.register(routes)
 
 const start = async () => {
     try {

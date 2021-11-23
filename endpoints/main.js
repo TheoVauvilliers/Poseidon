@@ -1,4 +1,4 @@
-async function routes(fastify, options) {
+export async function routes(fastify, options) {
 
     fastify
         .get('/', async (request, reply) => {
@@ -9,5 +9,3 @@ async function routes(fastify, options) {
     })
 
 }
-
-export default routes
