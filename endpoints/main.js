@@ -1,11 +1,11 @@
-export async function routes(fastify, options) {
+export async function routes(app, options) {
 
-    fastify
-        .get('/', async (request, reply) => {
+    app.get('/', async (request, reply) => {
         return { data: 'main' }
     })
-        .get('/sub', async (request, reply) => {
-        return { data: 'sub' }
-    })
 
+    app.get('/user/:id', async (request, reply) => {
+        let id = request.params.id
+        return { data: id }
+    })
 }
