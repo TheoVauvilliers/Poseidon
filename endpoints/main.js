@@ -1,4 +1,4 @@
-import { getChannelInfo, getTopStreamer } from '../lib/twitch.js'
+import { getChannelInfo, getTopStreamer, getUserByLogin } from '../lib/twitch.js'
 
 export const routes = async (app, options) => {
 
@@ -6,9 +6,9 @@ export const routes = async (app, options) => {
         return { data: 'main' }
     })
 
-    app.get('/user/:id', async (request, reply) => {
-        let id = request.params.id
-        return { id }
+    app.get('/user/:login', async (request, reply) => {
+        let data = await getUserByLogin(request.params.login)
+        return { data }
     })
 
     app.get('/channel/:id', async (request, reply) => {
