@@ -1,4 +1,4 @@
-import { getChannelInfo, getTopStreamer, getUserByLogin } from '../lib/twitch.js'
+import { getChannelInfo, getTopStreamer, getUserByLogin, getChatUsers } from '../lib/twitch.js'
 
 export const routes = async (app, options) => {
 
@@ -18,6 +18,12 @@ export const routes = async (app, options) => {
 
     app.get('/streamer/:lang/:top', async (request, reply) => {
         let data = await getTopStreamer(request.params.lang, request.params.top)
+        return { data }
+    })
+
+    app.get('/streamer/:login/chat/users', async (request, reply) => {
+        let data = await getChatUsers(request.params.login)
+
         return { data }
     })
 }
