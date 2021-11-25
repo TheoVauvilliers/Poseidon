@@ -1,4 +1,4 @@
-import { getChannelInfo, getTopStreamer, getUserByLogin, getChatUsers } from '../lib/twitch.js'
+import { getChannelInfo, getTopStreamer, getUserByLogin, getChatUsers } from '../lib/twitch/twitch.js'
 
 export const routes = async (app, options) => {
     app.get('/', async (request, reply) => {
