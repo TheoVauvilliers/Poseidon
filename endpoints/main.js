@@ -1,4 +1,4 @@
-import { getChannelInfo, getTopStreamer, getUserByLogin, getChatUsers } from '../lib/twitch/twitch.js'
+import { getChannelInfo, getTopStreamer, getUserByLogin } from '../lib/twitch/twitch.js'
 import { retrieveStreamerLogin, getViewersFromTopStreamer } from '../lib/twitch/helper.js'
 
 export const routes = async (app, options) => {
