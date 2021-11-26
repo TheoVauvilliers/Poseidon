@@ -31,10 +31,4 @@ export const routes = async (app, options) => {
 
         reply.send({ allViewers })
     })
-
-    app.get('/streamer/:login/chat/users', async (request, reply) => {
-        // let allViewers = await getViewersFromStreamerLogin(request.params.login)
-
-        reply.send({ allViewers })
-    })
 }
