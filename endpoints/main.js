@@ -1,5 +1,5 @@
 import { getChannelInfo, getTopStreamer, getUserByLogin } from '../lib/twitch/twitch.js'
-import { getStreamerLogin, getViewersFromTopStreamer } from '../lib/twitch/helper.js'
+import { getStreamerLogin, getViewersFromLoginArray } from '../lib/twitch/helper.js'
 
 export const routes = async (app, options) => {
     app.get('/', async (request, reply) => {
@@ -26,8 +26,8 @@ export const routes = async (app, options) => {
 
     app.get('/streamer/:lang/:top/chat/users', async (request, reply) => {
         const jsonTopStreamer = await getTopStreamer(request.params.lang, request.params.top)
-        const allViewers = await getViewersFromTopStreamer(getStreamerLogin(jsonTopStreamer))
+        const data = await getViewersFromLoginArray(getStreamerLogin(jsonTopStreamer))
 
-        reply.send({ allViewers })
+        reply.send({ data })
     })
 }
