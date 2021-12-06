@@ -1,6 +1,6 @@
 import { getChannelInfo, getTopStreamer, getUserByLogin } from '../lib/twitch/twitch.js'
 import { getStreamerLogin, getViewersFromLoginArray } from '../lib/twitch/helper.js'
-import { insertData } from '../lib/twitch/db.js'
+import { upsertHistory } from '../lib/twitch/db.js'
 
 export const routes = async (app, options) => {
     app.get('/', async function (request, reply) {
@@ -29,14 +29,14 @@ export const routes = async (app, options) => {
         const jsonTopStreamer = await getTopStreamer(request.params.lang, request.params.top)
         const data = await getViewersFromLoginArray(getStreamerLogin(jsonTopStreamer))
 
-        await insertData(this.mongo.db, data)
-
-        reply.send({ data })
-    })
-
-    app.get('/mongo/test', async function (request, reply) {
-        await insertData(this.mongo.db)
+        await upsertHistory(this.mongo.db, data)
 
         reply.send({ data : 'coucou' })
+    })
+
+    app.get('/mongo/history/delete', async function (request, reply) {
+        this.mongo.db.collection('history').remove({})
+
+        reply.send({ data : 'deleted' })
     })
 }
