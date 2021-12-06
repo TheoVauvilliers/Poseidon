@@ -1,6 +1,6 @@
 import { getTopStreamer } from '../lib/twitch.js'
-import { getStreamerLogin, getViewersFromLoginArray } from '../lib/twitch/helper.js'
-import { upsertHistory } from '../lib/twitch/db.js'
+import { getStreamerLogin, getViewersFromLoginArray } from '../lib/helper.js'
+import { upsertHistory } from '../lib/db.js'
 
 export const routes = async (app, options) => {
     app.get('/', async function (request, reply) {
