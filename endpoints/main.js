@@ -19,12 +19,21 @@ export const routes = async (app, options) => {
 
         await upsertHistory(this.mongo.db, data)
 
-        reply.send({ data : 'coucou' })
+        reply.send({ data: 'coucou' })
     })
 
-    app.get('/mongo/history/delete', async function (request, reply) {
-        this.mongo.db.collection('history').remove({})
+    app.get('/mongo/history/reset', async function (request, reply) {
+        this.mongo.db.collection('history').drop()
+        this.mongo.db.createCollection('history')
+        this.mongo.db.collection('history').createIndex(
+            {
+                name: 1
+            },
+            {
+                unique: true,
+            }
+        )
 
-        reply.send({ data : 'deleted' })
+        reply.send({ data: 'reset' })
     })
 }
