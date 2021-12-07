@@ -1,22 +1,10 @@
-import { getChannelInfo, getTopStreamer, getUserByLogin } from '../lib/twitch/twitch.js'
-import { getStreamerLogin, getViewersFromLoginArray } from '../lib/twitch/helper.js'
-import { upsertHistory } from '../lib/twitch/db.js'
+import { getTopStreamer } from '../lib/twitch.js'
+import { getStreamerLogin, getViewersFromLoginArray } from '../lib/helper.js'
+import { upsertHistory } from '../lib/db.js'
 
 export const routes = async (app, options) => {
     app.get('/', async function (request, reply) {
         reply.send({ data: 'main' })
-    })
-
-    app.get('/user/:login', async function (request, reply) {
-        let data = await getUserByLogin(request.params.login)
-
-        reply.send({ data })
-    })
-
-    app.get('/channel/:id', async function (request, reply) {
-        let data = await getChannelInfo(request.params.id)
-
-        reply.send({ data })
     })
 
     app.get('/streamer/:lang/:top', async function (request, reply) {
@@ -31,12 +19,21 @@ export const routes = async (app, options) => {
 
         await upsertHistory(this.mongo.db, data)
 
-        reply.send({ data : 'coucou' })
+        reply.send({ data: 'coucou' })
     })
 
-    app.get('/mongo/history/delete', async function (request, reply) {
-        this.mongo.db.collection('history').remove({})
+    app.get('/mongo/history/reset', async function (request, reply) {
+        this.mongo.db.collection('history').drop()
+        this.mongo.db.createCollection('history')
+        this.mongo.db.collection('history').createIndex(
+            {
+                name: 1
+            },
+            {
+                unique: true,
+            }
+        )
 
-        reply.send({ data : 'deleted' })
+        reply.send({ data: 'reset' })
     })
 }
