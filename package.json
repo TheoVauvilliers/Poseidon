@@ -1,5 +1,5 @@
 {
-  "name": "poseidon",
+  "name": "poseidon-back-process",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
